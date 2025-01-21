@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .filter-section {
+            margin: 20px auto;
+            max-width: 600px;
+            text-align: center;
+        }
+        .filter-section h2 {
+            margin-bottom: 10px;
+            color: #555;
+        }
+        .filter-section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .filter-section li {
+            display: inline-block;
+            margin: 5px;
+        }
+        .filter-section a {
+            text-decoration: none;
+            color: white;
+            background-color: #007BFF;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        .filter-section a:hover {
+            background-color: #0056b3;
+        }
+        .task-list {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .task-item {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+        .task-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Task Manager</h1>
+
+    <div class="filter-section">
+        <h2>Filter by Priority</h2>
+        <ul>
+            <li><a href="{% url 'filter_tasks' 'High' %}">High</a></li>
+            <li><a href="{% url 'filter_tasks' 'Medium' %}">Medium</a></li>
+            <li><a href="{% url 'filter_tasks' 'Low' %}">Low</a></li>
+        </ul>
+        <h2>Filter by Status</h2>
+        <ul>
+            <li><a href="{% url 'filterby_status' 'Pending' %}">Pending</a></li>
+            <li><a href="{% url 'filterby_status' 'In Progress' %}">In Progress</a></li>
+            <li><a href="{% url 'filterby_status' 'Completed' %}">Completed</a></li>
+        </ul>
+    </div>
+
+    <div class="task-list">
+        <h2>Tasks</h2>
+        {% for task in tasks %}
+        <div class="task-item">
+            <h3>{{ task.title }}</h3>
+            <p><strong>Description:</strong> {{ task.description }}</p>
+            <p><strong>Priority:</strong> {{ task.priority }}</p>
+            <p><strong>Status:</strong> {{ task.status }}</p>
+        </div>
+        {% empty %}
+        <p>No tasks found.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
